@@ -26,7 +26,7 @@ import com.bekvon.bukkit.residence.itemlist.WorldItemManager;
 import com.bekvon.bukkit.residence.permissions.PermissionGroup;
 import com.bekvon.bukkit.residence.protection.PermissionListManager;
 import com.bekvon.bukkit.residence.selection.SelectionManager;
-import com.bekvon.bukkit.residence.permissions.PermissionManager;
+import com.bekvon.bukkit.residence.permissions.ResPermissionManager;
 import com.bekvon.bukkit.residence.persistance.YMLSaveHelper;
 import com.bekvon.bukkit.residence.protection.ResidenceManager;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
@@ -39,7 +39,6 @@ import com.bekvon.bukkit.residence.text.help.HelpEntry;
 import com.bekvon.bukkit.residence.text.help.InformationPager;
 import com.earth2me.essentials.Essentials;
 import com.iConomy.iConomy;
-import com.spikensbror.bukkit.mineconomy.MineConomy;
 import cosine.boseconomy.BOSEconomy;
 import fr.crafter.tickleman.RealShop.RealShopPlugin;
 
@@ -80,7 +79,7 @@ public class Residence extends JavaPlugin {
 
     private static ResidenceManager rmanager;
     private static SelectionManager smanager;
-    private static PermissionManager gmanager;
+    private static ResPermissionManager gmanager;
     private static ConfigManager cmanager;
     private static ResidenceBlockListener blistener;
     private static ResidencePlayerListener plistener;
@@ -185,7 +184,7 @@ public class Residence extends JavaPlugin {
                     }
                 }
             }
-            gmanager = new PermissionManager(this.getConfiguration());
+            gmanager = new ResPermissionManager(this.getConfiguration());
             imanager = new WorldItemManager(this.getConfiguration());
             wmanager = new WorldFlagManager(this.getConfiguration());
             chatmanager = new ChatManager();
@@ -222,8 +221,6 @@ public class Residence extends JavaPlugin {
             if (this.getConfiguration().getBoolean("Global.EnableEconomy", false) && econsys != null) {
                 if (econsys.toLowerCase().equals("iconomy")) {
                     this.loadIConomy();
-                } else if (econsys.toLowerCase().equals("mineconomy")) {
-                    this.loadMineConomy();
                 } else if (econsys.toLowerCase().equals("boseconomy")) {
                     this.loadBOSEconomy();
                 } else if (econsys.toLowerCase().equals("essentials")) {
@@ -363,7 +360,7 @@ public class Residence extends JavaPlugin {
         return smanager;
     }
 
-    public static PermissionManager getPermissionManager() {
+    public static ResPermissionManager getPermissionManager() {
         return gmanager;
     }
 
@@ -462,17 +459,6 @@ public class Residence extends JavaPlugin {
             Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] Successfully linked with iConomy! Version: " + p.getDescription().getVersion());
         } else {
             Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] iConomy NOT found!");
-        }
-    }
-
-    private void loadMineConomy()
-    {
-        Plugin p = getServer().getPluginManager().getPlugin("MineConomy");
-        if (p != null) {
-            economy = new MineConomyAdapter((MineConomy)p);
-            Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] Successfully linked with MineConomy!");
-        } else {
-            Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] MineConomy NOT found!");
         }
     }
 

@@ -10,7 +10,7 @@ import com.bekvon.bukkit.residence.event.ResidenceFlagChangeEvent;
 import com.bekvon.bukkit.residence.event.ResidenceFlagCheckEvent;
 import com.bekvon.bukkit.residence.event.ResidenceFlagEvent.FlagType;
 import com.bekvon.bukkit.residence.event.ResidenceOwnerChangeEvent;
-import com.bekvon.bukkit.residence.permissions.PermissionManager;
+import com.bekvon.bukkit.residence.permissions.ResPermissionManager;
 import com.bekvon.bukkit.residence.permissions.PermissionGroup;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -320,7 +320,7 @@ public class ResidencePermissions extends FlagPermissions {
 
     public void applyDefaultFlags()
     {
-        PermissionManager gm = Residence.getPermissionManager();
+        ResPermissionManager gm = Residence.getPermissionManager();
         PermissionGroup group = gm.getGroup(owner, world);
         Set<Entry<String, Boolean>> dflags = group.getDefaultResidenceFlags();
         Set<Entry<String, Boolean>> dcflags = group.getDefaultCreatorFlags();

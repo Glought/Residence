@@ -8,7 +8,7 @@ package com.bekvon.bukkit.residence.economy;
 import com.bekvon.bukkit.residence.protection.CuboidArea;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.protection.ResidenceManager;
-import com.bekvon.bukkit.residence.permissions.PermissionManager;
+import com.bekvon.bukkit.residence.permissions.ResPermissionManager;
 import com.bekvon.bukkit.residence.permissions.PermissionGroup;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import java.util.Collections;
@@ -27,7 +27,7 @@ import org.bukkit.entity.Player;
 public class TransactionManager {
     ResidenceManager manager;
     private Map<String,Integer> sellAmount;
-    PermissionManager gm;
+    ResPermissionManager gm;
 
     public static boolean chargeEconomyMoney(Player player, int amount)
     {
@@ -47,7 +47,7 @@ public class TransactionManager {
         return true;
     }
 
-    public TransactionManager(ResidenceManager m, PermissionManager g)
+    public TransactionManager(ResidenceManager m, ResPermissionManager g)
     {
         gm = g;
         manager = m;
@@ -279,7 +279,7 @@ public class TransactionManager {
         return sellAmount;
     }
 
-    public static TransactionManager load(Map root, PermissionManager p, ResidenceManager r) {
+    public static TransactionManager load(Map root, ResPermissionManager p, ResidenceManager r) {
         TransactionManager tman = new TransactionManager(r,p);
         if(root!=null)
             tman.sellAmount = Collections.synchronizedMap(root);

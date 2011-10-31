@@ -29,8 +29,8 @@ public class PermissionsBukkitAdapter implements PermissionsInterface {
     }
 
     public String getPlayerGroup(String player, String world) {
-        PermissionManager pmanager = Residence.getPermissionManager();
-        List<Group> groups = newperms.getGroups(player);
+        ResPermissionManager pmanager = Residence.getPermissionManager();
+        List<PermissionGroup> groups = newperms.getGroups(player);
         for(Group group : groups)
         {
             String name = group.getName().toLowerCase();

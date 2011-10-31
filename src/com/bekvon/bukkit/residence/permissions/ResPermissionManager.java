@@ -9,6 +9,7 @@ import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.protection.FlagPermissions;
 import com.nijikokun.bukkit.Permissions.Permissions;
 import com.platymuus.bukkit.permissions.PermissionsPlugin;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,13 @@ import org.bukkit.util.config.ConfigurationNode;
  *
  * @author Administrator
  */
-public class PermissionManager {
+public class ResPermissionManager {
     protected static PermissionsInterface perms;
     protected Map<String,PermissionGroup> groups;
     protected Map<String,String> playersGroup;
     protected FlagPermissions globalFlagPerms;
 
-    public PermissionManager(Configuration config)
+    public ResPermissionManager(Configuration config)
     {
         try
         {
@@ -47,7 +48,7 @@ public class PermissionManager {
         }
         catch(Exception ex)
         {
-            Logger.getLogger(PermissionManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResPermissionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -129,6 +130,13 @@ public class PermissionManager {
        {
            perms = new PermissionsBukkitAdapter((PermissionsPlugin) p);
            Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] Found PermissionsBukkit Plugin!");
+           return;
+       }
+       p = server.getPluginManager().getPlugin("PermissionsEx");
+       if(p!=null)
+       {
+           perms = new PermissionsExAdapter((PermissionsEx) p);
+           Logger.getLogger("Minecraft").log(Level.INFO, "[Residence] Found PermissionsEx Plugin!");
            return;
        }
        p = server.getPluginManager().getPlugin("Permissions");
